@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <link rel="shortcut icon" type="image/png" href="Img/frothyLogo.png" /> -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link href="https://uploads-ssl.webflow.com/5c3b94f95c550c52154c4141/css/tlf-staging.webflow.97b957c9b.min.css"
+        rel="stylesheet" type="text/css" />
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="lib/pixi.js"></script>
+    <script type="text/javascript" src="lib/PIXI.TextInput.js"></script>
+    <script type="text/javascript" src="js/dotsAndBoxes.js"></script>
+    <script type="text/javascript" src="js/classes.js"></script>
+    <script type="text/javascript" src="js/dAndBTut.js"></script>
+    <title>Dots & Boxes</title>
+    <!-- TODO: Make font usage more scalable.. someday --->
+    <style type="text/css">
+        @font-face {
+            font-family: 'vt';
+            src: URL('fonts/monaco.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Monospaced';
+            src: URL('fonts/FiraCode-Regular.ttf') format('truetype');
+        }
+
+        body {
+            background-color: #232323;
+            color: antiquewhite;
+            color: black;
+            font-family: vt, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 28px;
+        }
+
+        #textContainerOne {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 50px;
+        }
+
+        .navbar {
+            background: #0e1216;
+        }
+
+        .bordedImg {
+            border: 4px solid black;
+            border-radius: 2%;
+        }
+
+        #game {
+            border: 3px solid lawngreen;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #50514F;
+            /* background-image: url('Img/siteBackground.jpg'); */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+        }
+
+        canvas {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0px;
+            display: block;
+            border: 2px solid #2C3531;
+
+        }
+
+
+
+
+
+        /* Add a black background color to the top navigation */
+.topnav {
+  background-color: #2c3e50;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="index.html">PAUL Q. PETERS</a>
+      </div>
+    <p style="margin-top: 0px;"></p>
+</body>
+
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="display: none;" id="btnModal">Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="min-height: 20em;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="min-height: 650px; max-height: 650px;">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Dots & Boxes + Minimax</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="tutContent">
+                <label for="GridSizes">Choose a Grid Size:</label>
+            <select id="GridSizes" name="GridSizes" onchange="updateBoardSize()">
+              <option value="6x4">6x4</option>
+              <option value="8x5">8x5</option>
+              <option value="12x7">12x7</option>
+            </select>
+            <br/>
+            <a href="https://en.wikipedia.org/wiki/Dots_and_Boxes" target="_blank">Dots and Boxes</a> 
+            is the classic game where players draw lines to make boxes for points. 
+            <br/><br/>
+            <center>
+                <img src="img/dotsAndBoxesW.png">
+            </center>
+            <br/>
+            In this project, you can play against a computer that uses the minimax algorithm to make decisions.
+            </div>
+          </div>
+          <div class="modal-footer">
+              
+            <button type="button" class="btn btn-secondary" disabled id="btnLeft" onclick="tutLeftBtn()">&larr;</button>
+            <button type="button" class="btn btn-secondary" id="btnRight" onclick="tutRightBtn()">&rarr;</button>
+            <br/>
+            <p id="PageIndex" style="font-size: 12px;"></p>
+          </div>
+    </div>
+  </div>
+</div>
+</html>
