@@ -116,10 +116,10 @@ window.onload = function () {
 
 function initGame() {
     setupGlobals();
-    WindowWidth = parseInt(Global.app.view.clientWidth);
-    WindowHeight = parseInt(Global.app.view.clientHeight);
     document.body.appendChild(Global.app.view);
     window.addEventListener('resize', resizeHandler, false);
+	WindowWidth = parseInt(Global.app.view.clientWidth);
+    WindowHeight = parseInt(Global.app.view.clientHeight);
     setupInitGraphics();
     resizeHandler();
 }
