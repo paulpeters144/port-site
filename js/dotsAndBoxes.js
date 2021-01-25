@@ -10,7 +10,7 @@ const ColorComputerSquare = 0xAF0069
 
 
 const BlackFont = new PIXI.TextStyle({
-    fontFamily: 'Trebuchet MS',
+    fontFamily: 'consolas',
     fontSize: 20,
     fill: '#000000',
     wordWrap: true,
@@ -18,7 +18,7 @@ const BlackFont = new PIXI.TextStyle({
   });
 
   const WinnerFont = new PIXI.TextStyle({
-    fontFamily: 'Trebuchet MS',
+    fontFamily: 'consolas',
     fontSize: 24,
     fill: '#000000',
     wordWrap: true,
@@ -30,7 +30,7 @@ const BlackFont = new PIXI.TextStyle({
   WinnerText.y = 50;
 
   const WhiteFont = new PIXI.TextStyle({
-    fontFamily: 'Trebuchet MS',
+    fontFamily: 'consolas',
     fontSize: 20,
     fill: '#FFFFFF',
     wordWrap: true,
@@ -38,7 +38,7 @@ const BlackFont = new PIXI.TextStyle({
   });
 
   const FontStyle = new PIXI.TextStyle({
-    fontFamily: 'Trebuchet MS',
+    fontFamily: 'consolas',
     fontSize: 26,
     fill: '#FFFFFF',
     wordWrap: true,

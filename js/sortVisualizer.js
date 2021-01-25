@@ -95,7 +95,7 @@ function finalSort() {
 }
 
 const FontStyle = new PIXI.TextStyle({
-    fontFamily: 'Trebuchet MS',
+    fontFamily: 'consolas',
     fontSize: 22,
     fill: '#FFFFFF',
     wordWrap: true,
@@ -103,7 +103,7 @@ const FontStyle = new PIXI.TextStyle({
   });
 
   const BlackFont = new PIXI.TextStyle({
-    fontFamily: 'Trebuchet MS',
+    fontFamily: 'consolas',
     fontSize: 20,
     fill: '#000000',
     wordWrap: true,
@@ -117,9 +117,9 @@ window.onload = function () {
 function initGame() {
     setupGlobals();
     document.body.appendChild(Global.app.view);
-    window.addEventListener('resize', resizeHandler, false);
-	WindowWidth = parseInt(Global.app.view.clientWidth);
+    WindowWidth = parseInt(Global.app.view.clientWidth);
     WindowHeight = parseInt(Global.app.view.clientHeight);
+    window.addEventListener('resize', resizeHandler, false);
     setupInitGraphics();
     resizeHandler();
 }
