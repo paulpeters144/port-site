@@ -94,8 +94,8 @@ function setupInitGraphics(){
 
     Grid = [];
     SearchedNodes = [];
-    const windowWidth = parseInt(Global.app.view.width);
-    const windowHeight = parseInt(Global.app.view.height);
+    const windowWidth = parseInt(Global.app.view.clientWidth);
+    const windowHeight = parseInt(Global.app.view.clientHeight);
     const backgroud = new PIXI.Graphics();
     backgroud.beginFill(BackgrounColor);
 
