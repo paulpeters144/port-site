@@ -38,7 +38,7 @@ const SearchType = {
 };
 
 const FontStyle = new PIXI.TextStyle({
-    fontFamily: 'consolas',
+    fontFamily: 'Trebuchet MS',
     fontSize: 26,
     fill: '#ffffff', // gradient
     stroke: '#4a1850',
@@ -147,7 +147,7 @@ function displayStats() {
     try { Container.removeChild(SearchStats.graphic); } 
     catch (error) {}
     const statStyle = new PIXI.TextStyle({
-        fontFamily: 'consolas',
+        fontFamily: 'Trebuchet MS',
         fontSize: 20,
         fill: '#000000', // gradient
         stroke: '#4a1850',
