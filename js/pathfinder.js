@@ -113,7 +113,7 @@ function setupInitGraphics(){
 }
 
 function setupBtns() {
-    const runBtn = new Btn(1375, 680, "Search");
+    const runBtn = new Btn(1375, 660, "Search");
     runBtn.addBtnToStage();
     runBtn.graphic.on('pointerdown', (e) => {
         if (AStarStarted)
@@ -131,15 +131,26 @@ function setupBtns() {
         displayStats();
       });
 
-    const randomBtn = new Btn(1375, 740, "Random");
+    const randomBtn = new Btn(1375, 720, "Random");
     randomBtn.addBtnToStage();
     randomBtn.graphic.on('pointerdown', (e) => {
         if (AStarStarted)
             return;
 
+        CreatingTraverse = false;
         Global.app.stage.removeChild(Container);
         setupInitGraphics();
         createRandomNodes();
+        
+    });
+
+    const clear = new Btn(1375, 780, "Clear");
+    clear.addBtnToStage();
+    clear.graphic.on('pointerdown', (e) => {
+        if (AStarStarted)
+            return;
+        cleanGrid();
+        drawNewGrid();
     });
 }
 
@@ -540,7 +551,7 @@ function calculateCostG(node) {
 }
 
 function setupInitialGrid(windowWidth, windowHeight) {
-    const outerLength = Math.floor(windowHeight / BoxHeight);
+    const outerLength = Math.floor(windowHeight * .94/ BoxHeight);
     for (let i = 0; i < outerLength; i++) {
         const innerGrid = [];
         const innerLength = Math.floor((windowWidth * .8) / BoxWidth);
