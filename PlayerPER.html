@@ -28,6 +28,7 @@
 
     <script type="text/javascript" src="js/Chart.min.js"></script>
     <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/playerPerTut.js"></script>
     <title>Player PER</title>
     <!-- TODO: Make font usage more scalable.. someday --->
     <style type="text/css">
@@ -151,5 +152,43 @@
 </div>
 <br><br><br>
     </div>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="display: none;" id="btnModal">Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="min-height: 20em;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="min-height: 650px; max-height: 650px;">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Player Efficiency Rating</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="tutContent" style="font-size: 22px;">
+                <br>
+                <div class="row">
+                <div class="col-3">
+                <img src="img/nbaLogo.png"/>
+                </div>
+                <div class="col-lg-8">
+                  The player efficiency rating (PER) is John Hollinger's all-in-one basketball 
+                  rating, which attempts to boil down all of a player's contributions into one number. 
+                  Using a detailed formula, Hollinger developed a system that rates every player's statistical performance.
+                    <a href="https://en.wikipedia.org/wiki/Player_efficiency_rating" target="_blank">Wikipedia</a>
+                </div>
+            </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+              
+            <button type="button" class="btn btn-secondary" disabled id="btnLeft" onclick="tutLeftBtn()">&larr;</button>
+            <button type="button" class="btn btn-secondary" id="btnRight" onclick="tutRightBtn()">&rarr;</button>
+            <br/>
+            <p id="PageIndex" style="font-size: 12px;"></p>
+          </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

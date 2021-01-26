@@ -60,10 +60,9 @@ function displayPage(pageIndex) {
             break;
         case 1:
             document.getElementById('tutContent').innerHTML = 
-            `<p>Minimax is generally a recursive funtion that ` + 
+            `<p>Minimax is a recursive funtion that ` + 
             `examines moves placed by a maximizing player (the artificial intelligence) or the minimizing player (the human user). ` + 
-            `The depth examined by the alrgorithm is the number of moves ahead that are being examined on the descision tree of ` + 
-            `possible moves. Read full Wikipedia article <a href="https://en.wikipedia.org/wiki/minimax" target="_blank">here</a>. ` + 
+            `Read full Wikipedia article <a href="https://en.wikipedia.org/wiki/minimax" target="_blank">here</a>. ` + 
          `
          <center>
              <img src="img/minimax.png">
@@ -74,8 +73,7 @@ function displayPage(pageIndex) {
             `The alrgorithm's depth is the number of moves ahead that are examined. 
             However, the time to analyze more depths grows expotentailly. 
             An addition to the minimax that can help prune descision branches is called 
-            Alpha-Beta Pruning. The addition prunes branches based on move evaluations, potentially saving 
-            the minimax time searching for the best move. Read full Wikipedia article 
+            Alpha-Beta Pruning. Read full Wikipedia article 
             <a href="https://en.wikipedia.org/wiki/Alpha–beta_pruning" target="_blank">here</a>.
             <center>
             <img src="img/abPruning.png">

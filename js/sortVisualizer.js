@@ -95,7 +95,7 @@ function finalSort() {
 }
 
 const FontStyle = new PIXI.TextStyle({
-    fontFamily: 'consolas',
+    fontFamily: 'Trebuchet MS',
     fontSize: 22,
     fill: '#FFFFFF',
     wordWrap: true,
@@ -103,7 +103,7 @@ const FontStyle = new PIXI.TextStyle({
   });
 
   const BlackFont = new PIXI.TextStyle({
-    fontFamily: 'consolas',
+    fontFamily: 'Trebuchet MS',
     fontSize: 20,
     fill: '#000000',
     wordWrap: true,

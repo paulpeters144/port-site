@@ -41641,7 +41641,7 @@ const Players = {
       "per": 6.7
     }
   },
-  "Jermaine O'Neal": {
+  "Jermaine ONeal": {
     "href": "https://www.basketball-reference.com/players/o/onealje01.html",
     "1996-97": {
       "year": "1996-97",
@@ -41950,7 +41950,7 @@ const Players = {
       "per": 11.9
     }
   },
-  "Shaquille O'Neal": {
+  "Shaquille ONeal": {
     "href": "https://www.basketball-reference.com/players/o/onealsh01.html",
     "1992-93": {
       "year": "1992-93",
@@ -49884,7 +49884,7 @@ const Players = {
       "per": 7.9
     }
   },
-  "D'Angelo Russell": {
+  "DAngelo Russell": {
     "href": "https://www.basketball-reference.com/players/r/russeda01.html",
     "2015-16": {
       "year": "2015-16",
@@ -53069,7 +53069,7 @@ const Players = {
       "per": 7.9
     }
   },
-  "Amar'e Stoudemire": {
+  "Amare Stoudemire": {
     "href": "https://www.basketball-reference.com/players/s/stoudam01.html",
     "2002-03": {
       "year": "2002-03",
