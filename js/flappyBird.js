@@ -11,6 +11,7 @@ const ObstacleTime = 10;
 let Flappy;
 let GameOver = false;
 let b;
+let Score = 0;
 
 const MainFont = new PIXI.TextStyle({
   fontFamily: "FB",
@@ -118,26 +119,24 @@ function initTextures(){
   });
 
   Container.addChild(backgroundSprite);
-  const startXPos = 450;
+  setupFlappy();
+  const startXPos = 750;
   PipeSet1 = new PipeSet();
   PipeSet1.setXPos(startXPos);
   PipeSet2 = new PipeSet();
   PipeSet2.setXPos(PipeSet1.pipeTop.x + 350);
   PipeSet1.getRandomYPositions();
   PipeSet2.getRandomYPositions();
-  setupFlappy();
+  
   GroundSprites.setupGround();
 
-  MainText = new PIXI.Text("", MainFont);
+  MainText = new PIXI.Text("Restart", MainFont);
   MainText.x = 175;
   MainText.y = 200;
   MainText.interactive = true;
   MainText.on('pointerdown', e => {
-    console.log('hit..');
     restartGame();
   });
-
-  addText();
 
   Global.app.animationUpdate = function (delta) {
     animationController();
@@ -149,10 +148,10 @@ function initTextures(){
 function restartGame() {
   
     Container.removeChild(Flappy.animation);
-    
+    HasStopped = false;
     Flappy = new Bird();
-    
-    MainText.text = "";
+    Score = 0;
+    Container.removeChild(MainText);
 
     Container.removeChild(PipeSet1.pipeTop);
     Container.removeChild(PipeSet1.pipeBottom);
@@ -164,7 +163,7 @@ function restartGame() {
     }, 250);
     
 
-  const startXPos = 450;
+  const startXPos = 750;
   PipeSet1 = new PipeSet();
   PipeSet1.setXPos(startXPos);
   PipeSet2 = new PipeSet();
@@ -179,18 +178,19 @@ function setupFlappy() {
   Flappy = new Bird();
 }
 
-function addText() {
-  
-  Container.addChild(MainText);
-}
-
+let HasStopped = false;
 function stopAnimations(){
+  if (!HasStopped) {
     GameOver = true;
-    MainText.text = "Restart";
+    
+    MainText.text = `Score: ${Score}\n\nRestart`;
+    Container.addChild(MainText);
     Flappy.animation.gotoAndStop(0);
     GroundSprites.moving = false;
     PipeSet1.moving = false;
     PipeSet2.moving = false;
+    HasStopped = true;
+  }
 }
 
 class Bird {
@@ -200,7 +200,7 @@ class Bird {
     this.gameStarted = false;
     this.animPlaying = false;
     this.nextRisePoint = 0;
-    this.roteIncrease = .15;
+    this.roteIncrease = .1;
     this.animationPoints = {
       rising: true
     };
@@ -230,10 +230,11 @@ class Bird {
     Container.addChild(this.animation);
     TimeKeeper.flappy = 0;
     this.moveUp = true;
+    this.tillCanRotate = 0;
 
     this.hitTexture = new PIXI.Sprite.from(flappySprite.anim[0]);
-    this.hitTexture.anchor.set(0.45);
-    this.hitTexture.scale.set(.4,.4);
+    this.hitTexture.anchor.set(0.5);
+    this.hitTexture.scale.set(.6,.6);
 
   }
   bounce(){
@@ -286,9 +287,14 @@ class Bird {
     TimeKeeper.flappy += Math.round(Global.app.ticker.elapsedMS);
     if (TimeKeeper.flappy > 12) {
         TimeKeeper.flappy = 0
-      if (this.animationPoints.rising)
+      if (this.animationPoints.rising) {
         this.riseFlappy();
-      else this.fallFlappy();
+        this.tillCanRotate = 0;
+      } else if (this.tillCanRotate <= 15)
+        this.tillCanRotate++;
+      else {
+        this.fallFlappy();
+      }
 
       this.moveFlappy();
       this.hitTexture.x = this.animation.x + 5;
@@ -297,8 +303,8 @@ class Bird {
   }
 
   riseFlappy() {
-    if (this.animation.rotation > -.05) {
-      this.animation.rotation -= .5;
+    if (this.animation.rotation > -.5) {
+      this.animation.rotation = -.5;
     } else if (this.animation.y > this.nextRisePoint) {
       
     } else {
@@ -360,15 +366,15 @@ class Bird {
       this.animPlaying = true;
       this.animation.play();
     }
-      
 
     this.animationPoints.rising = true;
     this.nextRisePoint = this.animation.y - 100;
   }
 
   fallFlappy() {
-    if (this.animation.rotation < 1.5)
+    if (this.animation.rotation < 1.5){
       this.animation.rotation += this.roteIncrease;
+    }
   }
   animate(){
 
@@ -407,7 +413,8 @@ class Bird {
 
 class PipeSet {
   constructor(){
-    this.distanceBetweenPipes = 200;
+    this.hasScored = false;
+    this.distanceBetweenPipes = 180;
     this.timeKeeper = 0
     this.moving = false;
     this.pipeTop = PIXI.Sprite
@@ -427,6 +434,7 @@ class PipeSet {
     Container.addChild(this.pipeBottom);
   }
   getRandomYPositions(){
+    this.hasScored = false;
     const randPos = Math.floor(Math.random() * 300);
     this.pipeTop.y = randPos - (this.pipeTop.height * .4);
     this.pipeBottom.y = this.pipeTop.height + 
@@ -439,6 +447,12 @@ class PipeSet {
   animate(){
     if (!this.moving)
       return;
+
+      if (!this.hasScored && 
+        Flappy.animation.x > this.pipeTop.x + this.pipeTop.width) {
+        Score++;
+        this.hasScored = true;
+      }
 
     this.timeKeeper += Math.round(Global.app.ticker.elapsedMS);
     if (this.timeKeeper > ObstacleTime) {

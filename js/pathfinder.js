@@ -10,7 +10,7 @@ const PathColor = 0x5EEE4A;
 const BoxLineColor = 0x2C3531;
 const TraverseColor = 0xD1E8E2;
 const NonTraverseColor = 0x116466;
-const EndFillColor = 0xaf0069;
+const EndFillColor = 0xDC143C;
 const StartFillColor = 0x1A508B;
 const ButtonColor = 0x116466;
 const White = 0xFFFFFF;
@@ -18,13 +18,14 @@ let CreatingTraverse = false;
 const BoxWidth = 25;
 const BoxHeight = 25;
 let start = [2, 2];
-let end = [25, 35];
+let end = [28, 45];
 const timeBetweenEvents = 2;
 let StartSelected = false;
 let EndSelected = false;
 let AStarStarted = false;
 let WindowWidth;
 let WindowHeight;
+let HasSeached = false;
 
 const SearchStats = {
     totalSeaches: 0,
@@ -118,10 +119,11 @@ function setupBtns() {
     const runBtn = new Btn(1375, 660, "Search");
     runBtn.addBtnToStage();
     runBtn.graphic.on('pointerdown', (e) => {
-        if (AStarStarted)
+        if (AStarStarted || HasSeached)
             return;
         
         AStarStarted = true;
+        HasSeached = true;
         drawNewGrid();
         SearchedNodes = [];
 
@@ -139,6 +141,7 @@ function setupBtns() {
         if (AStarStarted)
             return;
 
+        HasSeached = false;
         CreatingTraverse = false;
         Global.app.stage.removeChild(Container);
         setupInitGraphics();
@@ -151,6 +154,8 @@ function setupBtns() {
     clear.graphic.on('pointerdown', (e) => {
         if (AStarStarted)
             return;
+        
+        HasSeached = false;
         cleanGrid();
         drawNewGrid();
     });
@@ -602,6 +607,9 @@ function drawNewGrid() {
 }
 
 function setupStartPointSelected(graphic, x, i){
+    if (HasSeached)
+        return;
+    
     graphic.on('pointerdown', (e) => {
         if (!StartSelected) {
             Container.removeChild(graphic);
@@ -631,6 +639,9 @@ function setupStartPointSelected(graphic, x, i){
 }
 
 function setupEndPointSelected(graphic, x, i){
+    if (HasSeached)
+        return;
+
     graphic.on('pointerdown', (e) => {
         if (!EndSelected) {
             Container.removeChild(graphic);
@@ -697,6 +708,9 @@ function setupStartPointNOTSelected(graphic, x, i) {
 }
 
 function setupGridPointChanges(graphic, i, x) {
+    if (HasSeached)
+        return;
+
     graphic.on('pointerdown', (e) => {
         if (StartSelected) {
             start = [i, x];
@@ -758,6 +772,9 @@ function setupGridPointChanges(graphic, i, x) {
 }
 
 function makeTraversable(isTraversable, i, x, BoxWidth, BoxHeight) {
+    if (HasSeached)
+        return;
+
     Container.removeChild(Grid[i][x].graphic);
     const graphic = new PIXI.Graphics();
     graphic.buttonMode = true;
