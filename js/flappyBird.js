@@ -414,7 +414,7 @@ class Bird {
 class PipeSet {
   constructor(){
     this.hasScored = false;
-    this.distanceBetweenPipes = 180;
+    this.distanceBetweenPipes = 190;
     this.timeKeeper = 0
     this.moving = false;
     this.pipeTop = PIXI.Sprite
