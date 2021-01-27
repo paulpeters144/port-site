@@ -42,13 +42,13 @@ function animationController() {
 }
 
 function loadAssetsAndRun() {
-    Loader.baseUrl = '../img/flappyBird/';
+     //Loader.baseUrl = 'flappyBird';
     Loader
-      .add('fbBackground', 'background.png')
-      .add('flappy','bird.png')
-      .add('ground','ground.png')
-      .add('pipe', 'pipe.png')
-      .add('pipeTop', 'pipeTop.png');
+      .add('fbBackground', 'img/flappyBird/background.png')
+      .add('flappy','img/flappyBird/bird.png')
+      .add('ground','img/flappyBird/ground.png')
+      .add('pipe', 'img/flappyBird/pipe.png')
+      .add('pipeTop', 'img/flappyBird/pipeTop.png');
 
     Loader.onProgress.add(showProgress);
     Loader.onComplete.add(doneLoading);
