@@ -132,6 +132,7 @@ function stopAnimations(){
 
 class Bird {
   constructor(){
+    this.hitTexture;
     this.lastYClick;
     this.gameStarted = false;
     this.animPlaying = false;
@@ -155,6 +156,8 @@ class Bird {
       );
     }
 
+    
+
     this.animation = new PIXI.AnimatedSprite(flappySprite.anim);
     this.animation.rotation = 0;
     this.animation.scale.set(.65,.65);
@@ -166,6 +169,11 @@ class Bird {
     Container.addChild(this.animation);
     TimeKeeper.flappy = 0;
     this.moveUp = true;
+
+    this.hitTexture = new PIXI.Sprite.from(flappySprite.anim[0]);
+    this.hitTexture.anchor.set(0.5);
+    this.hitTexture.scale.set(.6,.6);
+
   }
   bounce(){
     TimeKeeper.flappy += Math.round(Global.app.ticker.elapsedMS);
@@ -222,6 +230,8 @@ class Bird {
       else this.fallFlappy();
 
       this.moveFlappy();
+      this.hitTexture.x = this.animation.x + 5;
+      this.hitTexture.y = this.animation.y + 5;
     }
   }
 
@@ -316,33 +326,21 @@ class Bird {
       console.log("hit ground");
     }
 
-    if (b.hit(this.animation, PipeSet1.pipeBottom)) {
+    if (b.hit(this.hitTexture, PipeSet1.pipeBottom)) {
       stopAnimations();
     }
 
-    if (b.hit(this.animation, PipeSet2.pipeBottom)) {
+    if (b.hit(this.hitTexture, PipeSet2.pipeBottom)) {
       stopAnimations();
     }
 
-    if (b.hit(this.animation, PipeSet1.pipeTop)) {
+    if (b.hit(this.hitTexture, PipeSet1.pipeTop)) {
       stopAnimations();
     }
 
-    if (b.hit(this.animation, PipeSet2.pipeTop)) {
+    if (b.hit(this.hitTexture, PipeSet2.pipeTop)) {
       stopAnimations();
     }
-
-    // if (this.hitBottomPipe(PipeSet1.pipeBottom) || 
-    // this.hitBottomPipe(PipeSet2.pipeBottom)) {
-    //   console.log("hit bottom");
-    //   stopAnimations();
-    // }
-
-    // if (this.hitTopPipe(PipeSet1.pipeTop) || 
-    // this.hitTopPipe(PipeSet2.pipeTop)) {
-    //   console.log("hit top pipe");  
-    // }
-
     
   }
   hitBottomPipe(pipe){
