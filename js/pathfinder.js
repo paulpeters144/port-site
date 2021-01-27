@@ -23,6 +23,8 @@ const timeBetweenEvents = 2;
 let StartSelected = false;
 let EndSelected = false;
 let AStarStarted = false;
+let WindowWidth;
+let WindowHeight;
 
 const SearchStats = {
     totalSeaches: 0,
@@ -49,7 +51,6 @@ const FontStyle = new PIXI.TextStyle({
 window.onload = function () {
     document.getElementById('btnModal').click();
     initGame();  
-    
     document.body.onmousedown = function() { 
         MouseDown = true;
       }
@@ -65,6 +66,8 @@ function getRandom(min, max) {
 function initGame() {
   setupGlobals();
   document.body.appendChild(Global.app.view);
+  WindowWidth = parseInt(Global.app.view.clientWidth);
+  WindowHeight = parseInt(Global.app.view.clientHeight);
   window.addEventListener('resize', resizeHandler, false);
   setupInitGraphics();
   createRandomNodes();
@@ -94,12 +97,11 @@ function setupInitGraphics(){
 
     Grid = [];
     SearchedNodes = [];
-    const windowWidth = parseInt(Global.app.view.clientWidth);
-    const windowHeight = parseInt(Global.app.view.clientHeight);
+    
     const backgroud = new PIXI.Graphics();
     backgroud.beginFill(BackgrounColor);
 
-    backgroud.drawRect(0, 0, windowWidth, windowHeight);
+    backgroud.drawRect(0, 0, WindowWidth, WindowHeight);
     backgroud.endFill();
 
     Container = new PIXI.Container();
@@ -107,7 +109,7 @@ function setupInitGraphics(){
     Container.addChild(backgroud);
     setupBtns();
 
-    setupInitialGrid(windowWidth, windowHeight);
+    setupInitialGrid(WindowWidth, WindowHeight);
     drawNewGrid();
 
 }
@@ -861,7 +863,6 @@ function resizeHandler() {
   Global.app.view.style.height = `${newHeight}px`;
   Global.imgScale = newWidth / 1280;
   Global.app.resize(newWidth, newHeight);
-  // Global.GameContainer.scale.set(scaleFactor);
 }
 
 class Node {
