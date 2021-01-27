@@ -42,7 +42,7 @@ function animationController() {
 }
 
 function loadAssetsAndRun() {
-    Loader.baseUrl = 'img/flappyBird/';
+    Loader.baseUrl = '/img/flappyBird/';
     Loader
       .add('fbBackground', 'background.png')
       .add('flappy','bird.png')
