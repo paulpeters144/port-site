@@ -6,11 +6,26 @@ let GroundSprites;
 const TimeKeeper = {};
 const BackgrounColor = 0x3e444c;
 const Loader = new PIXI.Loader();
-const ObstacleSpeed = 2;
+const ObstacleSpeed = 3;
 const ObstacleTime = 10;
 let Flappy;
 let GameOver = false;
 let b;
+
+const MainFont = new PIXI.TextStyle({
+  fontFamily: "FB",
+  fontSize: 35,
+  fill: '#FFFFFF',
+  wordWrap: true,
+  wordWrapWidth: 400,
+});
+
+const MFontX = 175;
+const MFontY = 200;
+
+
+
+let MainText;
 
 let PipeSet1;
 let PipeSet2;
@@ -42,13 +57,12 @@ function animationController() {
 }
 
 function loadAssetsAndRun() {
-     //Loader.baseUrl = 'flappyBird';
     Loader
-      .add('fbBackground', 'img/background.png')
-      .add('flappy','img/bird.png')
-      .add('ground','img/ground.png')
-      .add('pipe', 'img/pipe.png')
-      .add('pipeTop', 'img/pipeTop.png');
+      .add('fbBackground', 'img/flappyBird/background.png')
+      .add('flappy','img/flappyBird/bird.png')
+      .add('ground','img/flappyBird/ground.png')
+      .add('pipe', 'img/flappyBird/pipe.png')
+      .add('pipeTop', 'img/flappyBird/pipeTop.png');
 
     Loader.onProgress.add(showProgress);
     Loader.onComplete.add(doneLoading);
@@ -75,6 +89,9 @@ function initTextures(){
   backgroud.endFill();
 
   Container = new PIXI.Container();
+
+
+
   Global.app.stage.addChild(backgroud);
   Global.app.stage.addChild(Container);
 
@@ -111,6 +128,17 @@ function initTextures(){
   setupFlappy();
   GroundSprites.setupGround();
 
+  MainText = new PIXI.Text("", MainFont);
+  MainText.x = 175;
+  MainText.y = 200;
+  MainText.interactive = true;
+  MainText.on('pointerdown', e => {
+    console.log('hit..');
+    restartGame();
+  });
+
+  addText();
+
   Global.app.animationUpdate = function (delta) {
     animationController();
   };
@@ -118,12 +146,47 @@ function initTextures(){
   Global.app.ticker.add(Global.app.animationUpdate);
 }
 
+function restartGame() {
+  
+    Container.removeChild(Flappy.animation);
+    
+    Flappy = new Bird();
+    
+    MainText.text = "";
+
+    Container.removeChild(PipeSet1.pipeTop);
+    Container.removeChild(PipeSet1.pipeBottom);
+    Container.removeChild(PipeSet2.pipeTop);
+    Container.removeChild(PipeSet2.pipeBottom);
+
+    setTimeout( e => {
+      GameOver = false;
+    }, 250);
+    
+
+  const startXPos = 450;
+  PipeSet1 = new PipeSet();
+  PipeSet1.setXPos(startXPos);
+  PipeSet2 = new PipeSet();
+  PipeSet2.setXPos(PipeSet1.pipeTop.x + 350);
+  PipeSet1.getRandomYPositions();
+  PipeSet2.getRandomYPositions();
+  GroundSprites.dispose();
+  GroundSprites.setupGround();
+}
+
 function setupFlappy() {
   Flappy = new Bird();
 }
 
+function addText() {
+  
+  Container.addChild(MainText);
+}
+
 function stopAnimations(){
     GameOver = true;
+    MainText.text = "Restart";
     Flappy.animation.gotoAndStop(0);
     GroundSprites.moving = false;
     PipeSet1.moving = false;
@@ -156,8 +219,6 @@ class Bird {
       );
     }
 
-    
-
     this.animation = new PIXI.AnimatedSprite(flappySprite.anim);
     this.animation.rotation = 0;
     this.animation.scale.set(.65,.65);
@@ -171,8 +232,8 @@ class Bird {
     this.moveUp = true;
 
     this.hitTexture = new PIXI.Sprite.from(flappySprite.anim[0]);
-    this.hitTexture.anchor.set(0.5);
-    this.hitTexture.scale.set(.6,.6);
+    this.hitTexture.anchor.set(0.45);
+    this.hitTexture.scale.set(.4,.4);
 
   }
   bounce(){
@@ -323,7 +384,7 @@ class Bird {
   }
   hitObject() {
     if (this.animation.y >= 621) {
-      console.log("hit ground");
+      stopAnimations();
     }
 
     if (b.hit(this.hitTexture, PipeSet1.pipeBottom)) {
@@ -341,22 +402,6 @@ class Bird {
     if (b.hit(this.hitTexture, PipeSet2.pipeTop)) {
       stopAnimations();
     }
-    
-  }
-  hitBottomPipe(pipe){
-    const leftOfSprite = this.animation.x - (Math.floor(this.animation.width / 2));
-    const topOfSprite = this.animation.y - (Math.floor(this.animation.height / 2));
-    const rightOfPipe = pipe.x + pipe.width;
-    //if (topOfSprite + this.animation.height >= pipe.y ) {
-      if (leftOfSprite <= pipe.x && 
-        leftOfSprite + this.animation.width >= rightOfPipe) {
-        return true;
-      }
-    //}  
-    return false;
-  }
-  hitTopPipe(){
-    return false;
   }
 }
 
@@ -459,10 +504,15 @@ class Ground{
     }
   }
   setupGround(){
-  
+    this.arr = [];
     for (let i = 0; i < 22; i++) {
       this.addSpriteToEnd();
     }
+  }
+  dispose (){
+    this.arr.forEach(element => {
+      Container.removeChild(element);
+    });
   }
 }
 
