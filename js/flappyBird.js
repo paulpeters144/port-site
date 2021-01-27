@@ -6,7 +6,7 @@ let GroundSprites;
 const TimeKeeper = {};
 const BackgrounColor = 0x3e444c;
 const Loader = new PIXI.Loader();
-const ObstacleSpeed = 1.5;
+const ObstacleSpeed = 2;
 const ObstacleTime = 10;
 let Flappy;
 let GameOver = false;
