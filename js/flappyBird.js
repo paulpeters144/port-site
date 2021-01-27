@@ -44,11 +44,11 @@ function animationController() {
 function loadAssetsAndRun() {
      //Loader.baseUrl = 'flappyBird';
     Loader
-      .add('fbBackground', 'img/flappyBird/background.png')
-      .add('flappy','img/flappyBird/bird.png')
-      .add('ground','img/flappyBird/ground.png')
-      .add('pipe', 'img/flappyBird/pipe.png')
-      .add('pipeTop', 'img/flappyBird/pipeTop.png');
+      .add('fbBackground', 'img/background.png')
+      .add('flappy','img/bird.png')
+      .add('ground','img/ground.png')
+      .add('pipe', 'img/pipe.png')
+      .add('pipeTop', 'img/pipeTop.png');
 
     Loader.onProgress.add(showProgress);
     Loader.onComplete.add(doneLoading);
