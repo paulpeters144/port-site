@@ -290,9 +290,9 @@ function drawRightNav() {
     drawStats();
 
     let baseYPos = 100;
-    const bubbleSortBox = new CheckBox("Bubble Sort", bubbleSort, BlackFont, rightNavXPos + 20, baseYPos, 13, 100, 7);
+    const bubbleSortBox = new CheckBox("Bubble Sort", bubbleSort, BlackFont, rightNavXPos + 20, baseYPos, 26, 50, 14);
     
-    const insertionsSortBox = new CheckBox("Insertion Sort", insertionSort, BlackFont, rightNavXPos + 20, baseYPos += 35, 13, 100, 7);
+    const insertionsSortBox = new CheckBox("Insertion Sort", insertionSort, BlackFont, rightNavXPos + 20, baseYPos += 35, 26, 50, 14);
     insertionsSortBox.unselectBox();
 
     const selectSortBox = new CheckBox("Select Sort", selectSort, BlackFont, rightNavXPos + 20, baseYPos += 35, 13, 100, 7);
