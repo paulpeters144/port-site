@@ -64,9 +64,8 @@ function displayPage(pageIndex) {
             </div>
             <div class="col-lg-8">
               In this project, you can add players to a line graph and compare their PER ratings over their careers. NOTE:
-              Prior to the late 70s some stats were not recorded in the NBA making it impossible to get a PER rating during
-              some periods.<br><br>
-              Also, the list of players is not comprehenisve. The players chosen for this project were players who have been involeved in at
+              Prior to the late 70s some stats were not recorded in the NBA making it difficult to get a PER ratings.<br><br>
+              Also, the list of players is not comprehenisve. Players chosen were players who have been involeved in at
               least 1 all star game.
             </div>
         </div>`;
