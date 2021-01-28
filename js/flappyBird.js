@@ -334,27 +334,27 @@ class Bird {
     if (this.animation.y > this.nextRisePoint + 75) {
       this.animation.y -= 8;
     } else if (this.animation.y > this.nextRisePoint + 50) {
-      this.animation.y -= 7;
+      this.animation.y -= 8;
     } else if (this.animation.y > this.nextRisePoint + 25) {
-      this.animation.y -= 6;
+      this.animation.y -= 7;
     } else if (this.animation.y > this.nextRisePoint + 15) {
-      this.animation.y -= 4;
+      this.animation.y -= 5;
     } else {
-      this.animation.y -= 2;
+      this.animation.y -= 3;
     }
   }
 
   moveFlappyDown(){
     if (this.animation.y < this.nextRisePoint + 5) {
-      this.animation.y += 2;
+      this.animation.y += 3;
     } else if (this.animation.y < this.nextRisePoint + 15) {
-      this.animation.y += 2;
+      this.animation.y += 3;
     } else if (this.animation.y < this.nextRisePoint + 25) {
-      this.animation.y += 4;
+      this.animation.y += 5;
     } else if (this.animation.y < this.nextRisePoint + 50) {
-      this.animation.y += 6;
-    } else if (this.animation.y < this.nextRisePoint + 75) {
       this.animation.y += 7;
+    } else if (this.animation.y < this.nextRisePoint + 75) {
+      this.animation.y += 8;
     } else {
       this.animation.y += 8;
     }
